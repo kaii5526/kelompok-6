@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Teknologi Ramah Lingkungan</title>
+
+  <style>
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      font-family: Arial, sans-serif;
+    }
+
+    body{
+      background: linear-gradient(to bottom right, #dfffe0, #b8f5c2);
+      min-height:100vh;
+      padding:30px;
+      color:#222;
+    }
+
+    .container{
+      max-width:1000px;
+      margin:auto;
+      text-align:center;
+    }
+
+    h1{
+      font-size:40px;
+      margin-bottom:10px;
+      color:#1b5e20;
+    }
+
+    .subtitle{
+      margin-bottom:40px;
+      font-size:18px;
+    }
+
+    .cards{
+      display:grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px,1fr));
+      gap:20px;
+    }
+
+    .card{
+      background:white;
+      padding:25px;
+      border-radius:20px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.15);
+      transition:0.3s;
+    }
+
+    .card:hover{
+      transform:translateY(-10px);
+    }
+
+    .icon{
+      font-size:60px;
+      margin-bottom:15px;
+    }
+
+    .card h2{
+      margin-bottom:10px;
+      color:#2e7d32;
+    }
+
+    .card p{
+      margin-bottom:20px;
+    }
+
+    button{
+      padding:12px 20px;
+      border:none;
+      border-radius:10px;
+      cursor:pointer;
+      font-size:16px;
+      transition:0.3s;
+      color:white;
+      font-weight:bold;
+    }
+
+    button:hover{
+      transform:scale(1.05);
+    }
+
+    .btn-red{
+      background:#e53935;
+    }
+
+    .btn-yellow{
+      background:#f9a825;
+    }
+
+    .btn-green{
+      background:#43a047;
+    }
+
+    .result{
+      margin-top:40px;
+      background:white;
+      padding:25px;
+      border-radius:20px;
+      box-shadow:0 5px 15px rgba(0,0,0,0.15);
+      display:none;
+      animation:fade 0.5s ease;
+    }
+
+    @keyframes fade{
+      from{
+        opacity:0;
+        transform:translateY(20px);
+      }
+      to{
+        opacity:1;
+        transform:translateY(0);
+      }
+    }
+
+    .progress-container{
+      width:100%;
+      background:#ddd;
+      border-radius:20px;
+      overflow:hidden;
+      height:25px;
+      margin:20px 0;
+    }
+
+    .progress-bar{
+      height:100%;
+      width:0%;
+      text-align:center;
+      line-height:25px;
+      color:white;
+      font-weight:bold;
+      transition:1s;
+    }
+
+    .info{
+      text-align:left;
+      line-height:1.8;
+      margin-top:10px;
+    }
+
+    .education{
+      margin-top:20px;
+      font-weight:bold;
+      color:#2e7d32;
+    }
+
+    @media(max-width:600px){
+      h1{
+        font-size:28px;
+      }
+
+      .subtitle{
+        font-size:15px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+
+    <h1>💡 Teknologi Ramah Lingkungan</h1>
+
+    <p class="subtitle">
+      Sekolah ingin mengganti semua lampu kelas.  
+      Manakah teknologi yang paling berkelanjutan?
+    </p>
+
+    <div class="cards">
+
+      <!-- Lampu Pijar -->
+      <div class="card">
+        <div class="icon">💡</div>
+        <h2>Lampu Pijar</h2>
+        <p>Murah tetapi sangat boros listrik.</p>
+
+        <button class="btn-red"
+          onclick="showResult(
+            'Lampu Pijar',
+            'Rendah',
+            'Biaya listrik tinggi dalam jangka panjang',
+            'Menghasilkan konsumsi energi besar',
+            'Kurang Berkelanjutan',
+            25,
+            '#e53935'
+          )">
+          Pilih
+        </button>
+      </div>
+
+      <!-- LED -->
+      <div class="card">
+        <div class="icon">🔆</div>
+        <h2>Lampu LED</h2>
+        <p>Lebih mahal tetapi hemat energi dan tahan 10 tahun.</p>
+
+        <button class="btn-yellow"
+          onclick="showResult(
+            'Lampu LED',
+            'Tinggi',
+            'Lebih hemat biaya dalam jangka panjang',
+            'Mengurangi penggunaan listrik',
+            'Sangat Berkelanjutan',
+            80,
+            '#f9a825'
+          )">
+          Pilih
+        </button>
+      </div>
+
+      <!-- Sensor Gerak -->
+      <div class="card">
+        <div class="icon">🚶‍♂️</div>
+        <h2>Lampu Sensor Gerak</h2>
+        <p>Otomatis mati jika tidak ada orang.</p>
+
+        <button class="btn-green"
+          onclick="showResult(
+            'Lampu Sensor Gerak',
+            'Sangat Tinggi',
+            'Paling hemat listrik dan efisien',
+            'Sangat baik untuk lingkungan',
+            'Paling Berkelanjutan',
+            95,
+            '#43a047'
+          )">
+          Pilih
+        </button>
+      </div>
+
+    </div>
+
+    <!-- Hasil -->
+    <div class="result" id="resultBox">
+
+      <h2 id="titleResult"></h2>
+
+      <div class="progress-container">
+        <div class="progress-bar" id="progressBar">0%</div>
+      </div>
+
+      <div class="info">
+        <p><strong>⚡ Hemat Energi:</strong> <span id="energy"></span></p>
+        <p><strong>💰 Biaya Jangka Panjang:</strong> <span id="cost"></span></p>
+        <p><strong>🌍 Dampak Lingkungan:</strong> <span id="impact"></span></p>
+        <p><strong>✅ Kesimpulan:</strong> <span id="conclusion"></span></p>
+      </div>
+
+      <p class="education">
+        Teknologi hemat energi membantu mengurangi penggunaan listrik dan emisi karbon.
+      </p>
+
+    </div>
+
+  </div>
+
+  <script>
+    function showResult(name, energy, cost, impact, conclusion, percent, color){
+
+      document.getElementById("resultBox").style.display = "block";
+
+      document.getElementById("titleResult").innerHTML =
+        "Hasil Pilihan: " + name;
+
+      document.getElementById("energy").innerHTML = energy;
+      document.getElementById("cost").innerHTML = cost;
+      document.getElementById("impact").innerHTML = impact;
+      document.getElementById("conclusion").innerHTML = conclusion;
+
+      let progressBar = document.getElementById("progressBar");
+
+      progressBar.style.width = percent + "%";
+      progressBar.innerHTML = percent + "%";
+      progressBar.style.background = color;
+    }
+  </script>
+
+</body>
+</html>
